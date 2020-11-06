@@ -1,21 +1,18 @@
 package com.example.myaudiorecorder
 
+
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.io.File
 import java.io.IOException
-import java.util.*
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
     lateinit var status: TextView
@@ -30,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     var pathSave: String = ""
     private lateinit var mediaRecorder: MediaRecorder
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var nameFile: String
     private var REQUEST_PERMISSION_CODE: Int = 1000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +43,18 @@ class MainActivity : AppCompatActivity() {
         status = findViewById(R.id.textView2)
 
 
+        nameFile = "audioRec.mp3"
+        findViewById<Button>(R.id.btnFileName).setOnClickListener {
+            addFileName(it)
+        }
+
+
         btnRecordingStart.setOnClickListener {
             if (checkPermissionFromDevice()) {
-                pathSave =
-                    "${externalCacheDir?.absolutePath}/myRecording.3gp"
+                pathSave = File(
+                    Environment.getExternalStorageDirectory(),
+                    "/AudioRec/$nameFile"
+                ).toString()
                 setMediaRecorder()
                 try {
                     mediaRecorder.prepare()
@@ -140,6 +146,13 @@ class MainActivity : AppCompatActivity() {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
+    }
+
+//  set the name of the file from the edit text
+    private fun addFileName(view: View) {
+        val editText = findViewById<EditText>(R.id.fileName)
+        nameFile = editText.text.toString() + ".mp3"
+        editText.setText("File Name Set")
     }
 
 }
