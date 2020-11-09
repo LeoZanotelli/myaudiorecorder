@@ -1,9 +1,11 @@
 package com.example.myaudiorecorder
 
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
@@ -31,6 +33,11 @@ class MainActivity : AppCompatActivity() {
     private var REQUEST_PERMISSION_CODE: Int = 1000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // create a File object for the parent directory
+        val wallpaperDirectory = File("/AudioRec/")
+        // have the object build the directory structure, if needed.
+        wallpaperDirectory.mkdirs()
 
         if (!checkPermissionFromDevice()){
             requestPermission()
@@ -76,6 +83,14 @@ class MainActivity : AppCompatActivity() {
                 btnRecordingStop.isEnabled = true
                 btnStop.isEnabled = false
                 status.text="Stopping Recording "
+
+                val shareIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    var uri = Uri.parse(pathSave)
+                    putExtra(Intent.EXTRA_STREAM, uri)
+                    type = "audio/mp3"
+                }
+                startActivity(Intent.createChooser(shareIntent, "Share audio to.."))
             }
             btnPlay.setOnClickListener {
                 btnStop.isEnabled = true

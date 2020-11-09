@@ -80,7 +80,7 @@
         android:id="@+id/btnStopRecord"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
+        android:background="@drawable/background"
         android:text="Stop Recording"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,7 +88,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/play"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintVertical_bias="0.95" />
 
     <Button
         android:id="@+id/btnFileName"
@@ -100,7 +100,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/play"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.780" />
+        app:layout_constraintVertical_bias="0.80" />
 
     <EditText
         android:id="@+id/fileName"
@@ -115,7 +115,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/play"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.70"/>
+        app:layout_constraintVertical_bias="0.7"/>
+
 
  />
 
